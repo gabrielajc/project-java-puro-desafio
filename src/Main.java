@@ -53,10 +53,11 @@ public class Main{
                         System.out.println("Valor a depositar:");
                         double valorDeposito = scanner.nextDouble();
                         scanner.nextLine();
+                        Operacoes operacoes = new Operacoes();
                         if(conta == 1){
-                           cliente.saldoContaCorrente += valorDeposito;
+                            operacoes.depositar(cliente, valorDeposito, conta);
                         } else if (conta == 2){
-                           cliente.saldoContaPoupanca += valorDeposito;
+                            operacoes.depositar(cliente, valorDeposito, conta);
                         }
                         System.out.println("""
                         Nome:""" + cliente.nome + """
