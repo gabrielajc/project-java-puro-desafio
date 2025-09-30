@@ -30,8 +30,9 @@ public class Main{
                 Digite 2 para: Poupanca
                 """);
 
-                int conta = scanner.nextInt();
-                cliente.tipoConta = conta;
+                int tipoConta = scanner.nextInt();
+                Operacoes operacoes = new Operacoes();
+                TipoContaEnum tipoContaSelecionada = operacoes.tipoConta(tipoConta);
                 scanner.nextLine();
 
                 System.out.println("""
@@ -53,12 +54,8 @@ public class Main{
                         System.out.println("Valor a depositar:");
                         double valorDeposito = scanner.nextDouble();
                         scanner.nextLine();
-                        Operacoes operacoes = new Operacoes();
-                        if(conta == 1){
-                            operacoes.depositar(cliente, valorDeposito, conta);
-                        } else if (conta == 2){
-                            operacoes.depositar(cliente, valorDeposito, conta);
-                        }
+                        operacoes.depositar(cliente, valorDeposito, tipoContaSelecionada);
+
                         System.out.println("""
                         Nome:""" + cliente.nome + """
         
