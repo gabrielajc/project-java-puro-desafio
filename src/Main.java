@@ -2,9 +2,8 @@ package src;
 
 import java.util.Scanner;
 
-public class Main{
+public class Main {
     public static void main(String[] args) {
-
 
         System.out.println("""
                 Bem vindo:
@@ -16,140 +15,119 @@ public class Main{
         int opcao = scanner.nextInt();
         scanner.nextLine();
 
-        switch (opcao){
+        Cliente cliente = new Cliente();
+        Operacoes operacoes = new Operacoes();
+
+        switch (opcao) {
 
             case 1:
                 System.out.println("Digite seu nome:");
                 String nome = scanner.nextLine();
-                Cliente cliente = new Cliente();
                 cliente.nome = nome;
 
-                System.out.println("""
-                Qual tipo de conta voce gostaria de realizar uma operacao?
-                Digite 1 para: Corrente 
-                Digite 2 para: Poupanca
-                """);
+                boolean novaOperacao = false;
 
-                int tipoConta = scanner.nextInt();
-                Operacoes operacoes = new Operacoes();
-                TipoContaEnum tipoContaSelecionada = operacoes.tipoConta(tipoConta);
-                scanner.nextLine();
+                do {
 
-                System.out.println("""
-                Selecione a operacao:
-                Digite 1 para: Transferencia
-                Digite 2 para: Deposito
-                Digite 3 para: Consultar Saldo
-                Digite 4 para: Sair
-                """);
+                    System.out.println("""
+                            Qual tipo de conta voce gostaria de realizar uma operacao?
+                            Digite 1 para: Corrente 
+                            Digite 2 para: Poupanca
+                            """);
 
-                int operacao = scanner.nextInt();
-                scanner.nextLine();
+                    int tipoConta = scanner.nextInt();
 
-                switch (operacao){
-                    case 1:
-                        break;
+                    TipoContaEnum tipoContaSelecionada = operacoes.tipoConta(tipoConta);
+                    scanner.nextLine();
 
-                    case 2:
-                        System.out.println("Valor a depositar:");
-                        double valorDeposito = scanner.nextDouble();
-                        scanner.nextLine();
-                        operacoes.depositar(cliente, valorDeposito, tipoContaSelecionada);
+                    System.out.println("""
+                            Selecione a operacao:
+                            Digite 1 para: Transferencia
+                            Digite 2 para: Deposito
+                            Digite 3 para: Consultar Saldo
+                            Digite 4 para: Sair
+                            """);
 
-                        System.out.println("""
-                        Nome:""" + cliente.nome + """
-        
-                        Tipo de conta: Corrente
-                        Saldo: """ + cliente.saldoContaCorrente +
-                                """
-        
-                        Tipo de conta: Poupanca
-                        Saldo: """ + cliente.saldoContaPoupanca +
-                                """
-        
-                        Digite 1 para: Realizar outra operacao
-                        Digite 2 para: Sair
-                        """)
+                    int operacao = scanner.nextInt();
+                    scanner.nextLine();
 
-                        ;
+                    switch (operacao) {
+                        case 1:
+                            System.out.println("Valor a transferir:");
+                            double valorTransferencia = scanner.nextDouble();
+                            scanner.nextLine();
+                            operacoes.transferir(cliente, valorTransferencia, tipoContaSelecionada);
 
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                }
+                            System.out.println("""
+                                                       -------------------------------
+                                                       Nome:""" + cliente.nome + """
+                                                               
+                                                       Tipo de conta: Corrente
+                                                       Saldo: """ + cliente.saldoContaCorrente +
+                                               """
+                                                                   
+                                                       Tipo de conta: Poupanca
+                                                       Saldo: """ + cliente.saldoContaPoupanca +
+                                               """
+                                                                                           
+                                                       -------------------------------          
+                                                       Digite 1 para: Realizar outra operacao
+                                                       Digite 2 para: Sair
+                                                       """);
+                            int nextStep = scanner.nextInt();
+                            novaOperacao = (nextStep == 1) ? true : false;
+
+
+                            break;
+
+                        case 2:
+                            System.out.println("Valor a depositar:");
+                            double valorDeposito = scanner.nextDouble();
+                            scanner.nextLine();
+                            operacoes.depositar(cliente, valorDeposito, tipoContaSelecionada);
+
+                            System.out.println("""
+                                                       -------------------------------
+                                                       Nome:""" + cliente.nome + """
+                                                               
+                                                       Tipo de conta: Corrente
+                                                       Saldo: """ + cliente.saldoContaCorrente +
+                                               """
+                                                                   
+                                                       Tipo de conta: Poupanca
+                                                       Saldo: """ + cliente.saldoContaPoupanca +
+                                               """
+                                                                                           
+                                                       -------------------------------          
+                                                       Digite 1 para: Realizar outra operacao
+                                                       Digite 2 para: Sair
+                                                       """);
+                            int returnOp = scanner.nextInt();
+                            novaOperacao = (returnOp == 1) ? true : false;
+
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                    }
+
+                } while (novaOperacao);
 
 //---------------------------------------------
 
                 break;
 
             case 2:
+                if (cliente.nome != null) {
+
+                }
 
                 break;
 
             default:
 
         }
-//
-//        //case 1 e 2
-//        System.out.println("Digite seu nome:");
-//
-//        //case 2
-//
-//        System.out.println("""
-//                Qual tipo de conta voce gostaria de realizar uma operacao?
-//                Digite 1 para: Corrente
-//                Digite 2 para: Poupanca
-//                """);
-//
-//
-//
-//        System.out.println("""
-//        Selecione a operacao:
-//        Digite 1 para: Transferencia
-//        Digite 2 para: Deposito
-//        Digite 3 para: Consultar Saldo
-//        Digite 4 para: Sair
-//        """);
-//
-//        //case 1
-//
-//        System.out.println("Valor a transefir:");
-//
-//       //continuacao e case 3
-//        System.out.println("""
-//                Nome: interpolacao nome
-//
-//                Tipo de conta: Corrente
-//                Saldo: interpolacao saldo final da conta corrente
-//
-//                Tipo de conta: Poupanca
-//                Saldo: interpolacao saldo final da conta poupanca
-//
-//                Digite 1 para: Realizar outra operacao
-//                Digite 2 para: Sair
-//                """);
-//
-//        //case 2
-//
-//        System.out.println("Valor a depositar:");
-//
-//        //continuacao e case 3
-//        System.out.println("""
-//                Nome: interpolacao nome
-//
-//                Tipo de conta: Corrente
-//                Saldo: interpolacao saldo final da conta corrente
-//
-//                Tipo de conta: Poupanca
-//                Saldo: interpolacao saldo final da conta poupanca
-//
-//                Digite 1 para: Realizar outra operacao
-//                Digite 2 para: Sair
-//                """);
-//
-
 
 
 
@@ -178,8 +156,6 @@ Operações
 4- Sair
 
 Digite a opção desejada: */
-
-
 
 
     }
