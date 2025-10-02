@@ -7,18 +7,21 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        List<Cliente> clientes = new ArrayList<>();
+        Operacoes operacoes = new Operacoes();
+        Scanner scanner = new Scanner(System.in);
+        boolean exibeMenu = false;
+
+        do {
+
         System.out.println("""
                 Bem vindo:
                 Digite 1 para: Abertura de conta
                 Digite 2 para: Operacao na conta existente
                 """);
 
-        Scanner scanner = new Scanner(System.in);
         int opcao = scanner.nextInt();
         scanner.nextLine();
-
-        List<Cliente> clientes = new ArrayList<>();
-        Operacoes operacoes = new Operacoes();
 
         switch (opcao) {
 
@@ -29,11 +32,9 @@ public class Main {
                 cliente.nome = nome;
                 clientes.add(cliente);
 
-                exibeOperacoes(scanner, cliente, operacoes);
+                exibeMenu = exibeOperacoes(scanner, cliente, operacoes);
 
                 break;
-
-//---------------------------------------------
 
             case 2:
                 System.out.println("Digite nome cadastrado:");
@@ -41,19 +42,25 @@ public class Main {
                 Cliente clienteEncontrado = buscaCliente(clientes, nomeCadastrado);
                 if (clienteEncontrado == null) {
                     System.out.println("Erro: Cliente não encontrado, confira se o nome é exatamente igual ao nome cadastrado.");
+                    exibeMenu = true;
                 } else {
-                    System.out.println("Bem vindo" + clienteEncontrado.nome);
+                    System.out.println("Bem vindo(a) " + clienteEncontrado.nome);
                     exibeOperacoes(scanner, clienteEncontrado, operacoes);
                 }
                 break;
 
             default:
+                System.out.println("Opcao invalida, por favor tente novamente");
+                exibeMenu = true;
 
         }
+        } while(exibeMenu);
     }
 
-    private static void exibeOperacoes(Scanner scanner, Cliente cliente, Operacoes operacoes) {
+    private static boolean exibeOperacoes(Scanner scanner, Cliente cliente, Operacoes operacoes) {
+
         boolean novaOperacao = false;
+
         do {
             System.out.println("""
                     Qual tipo de conta voce gostaria de realizar uma operacao?
@@ -113,8 +120,17 @@ public class Main {
 
                     break;
                 case 3:
+                    exibeDados(cliente);
+                    System.out.println("""
+                            Digite 1 para: Realizar outra operacao
+                            Digite 2 para: Sair
+                            """);
+                    int returnOperacao = scanner.nextInt();
+                    novaOperacao = (returnOperacao == 1);
+
                     break;
                 case 4:
+                    novaOperacao = false;
                     break;
                 default:
                     System.out.println("Opcao invalida, por favor tente novamente");
@@ -122,6 +138,7 @@ public class Main {
             }
 
         } while (novaOperacao);
+        return true;
     }
 
     private static void exibeDados(Cliente cliente) {
